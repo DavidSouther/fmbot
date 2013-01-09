@@ -1,8 +1,7 @@
 require! {Bot: "ttapi", nconf}
 
-nconf.argv!
-	.env!
-	.file { file: 'config.json' }
+# Load config file
+nconf.file { file: 'config.json' }
 
 bot = new Bot(nconf.get(\Auth), nconf.get(\UserId), nconf.get(\RoomId))
 
