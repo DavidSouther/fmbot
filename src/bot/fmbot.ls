@@ -1,13 +1,20 @@
 require! {Bot: "ttapi", nconf}
 
 # Load config file
-nconf.file { file: 'config.json' }
+nconf
+	.file { file: 'config.json' }
+	.defaults { upvote: \all }
 
 # Get ourselves a new bot. Attach it to the global scope so we can get at it in node-inspector.
 global.bot = new Bot(nconf.get(\Auth), nconf.get(\UserId), nconf.get(\RoomId))
 
+
+switch nconf.get \upvote
 # Songs are awesome. Bop all songs!
-bot.on \newsong, !-> bot.bop!
+| \all => bot.on \newsong, !-> bot.bop!
+# Not everything's great, and this bot is just a sheep.
+| \follow => bot.on \update_votes, !(votes)-> if votes.room.metadata.upvotes > votes.room.metadata.downvotes then bot.bop!
+
 
 # Set up listeners to jump in and DJ or leave a turntable open
 let djing = no
