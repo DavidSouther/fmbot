@@ -18,9 +18,9 @@ Configure
 ```
 echo > config.json <<EOF
 {
-	"Auth": "auth+live+$YOUR_AUTH_KEY",
-	"UserId": "$USER_ID",
-	"RoomId": "$ROOM_ID",
+	"Auth": "AUTH_KEY",
+	"UserId": "USER_ID",
+	"RoomId": "ROOM_ID",
 	"upvote": "all"
 }
 EOF
