@@ -2,7 +2,7 @@ require! {Bot: "ttapi", nconf}
 
 # Load config file
 nconf
-	.file { file: 'config.json' }
+	.file { file: process.argv[2] || 'config.json' }
 	.defaults { upvote: \all }
 
 # Get ourselves a new bot. Attach it to the global scope so we can get at it in node-inspector.
