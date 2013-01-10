@@ -5,10 +5,10 @@ module.exports = function(grunt) {
 		clean: {
 			all: ['lib/'],
 		},
-		livescript: {
+		coffee: {
 			bot: {
 				files: {
-					'lib/<%= pkg.name %>.js': ['src/bot/**/*ls']
+					'lib/<%= pkg.name %>.js': ['src/bot/**/*coffee']
 				}
 			}
 		},
@@ -23,9 +23,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks('grunt-contrib');
-	grunt.loadNpmTasks('grunt-livescript');
 
-	grunt.registerTask('build-bot', ['livescript:bot']);
+	grunt.registerTask('build-bot', ['coffee:bot']);
 	grunt.registerTask('build', ['build-bot']);
 	grunt.registerTask('default', ['clean', 'build']);
 };
