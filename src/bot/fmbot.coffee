@@ -3,8 +3,8 @@ nconf = require "nconf"
 
 # Load config file
 nconf
-	.file { file: process.argv[2] || 'config.json' }
-	.defaults { upvote: 'all' }
+	.file({ file: process.argv[2] || 'config.json' })
+	.defaults({ upvote: 'all' })
 
 # Get ourselves a new bot. Attach it to the global scope so we can get at it in node-inspector.
 global.bot = new Bot nconf.get('Auth'), nconf.get('UserId'), nconf.get('RoomId')
