@@ -9,13 +9,16 @@ nconf
 # Get ourselves a new bot. Attach it to the global scope so we can get at it in node-inspector.
 global.bot = new Bot nconf.get('Auth'), nconf.get('UserId'), nconf.get('RoomId')
 
-
+sheeple = (votes)-> if votes.room.metadata.upvotes > votes.room.metadata.downvotes then bot.bop()
 switch nconf.get 'upvote'
 	# Songs are awesome. Bop all songs!
-	when 'all' then bot.on 'newsong', -> bot.bop()
+	when 'all'
+		bot.on 'newsong', -> bot.bop()
+		bot.on 'roomChanged', -> bot.bop()
 	# Not everything's great, and this bot is just a sheep.
-	when 'follow' then bot.on 'update_votes', (votes)-> if votes.room.metadata.upvotes > votes.room.metadata.downvotes then bot.bop()
-
+	when 'follow'
+		bot.on 'update_votes', sheeple
+		bot.on 'roomChanged', sheeple
 
 # Set up listeners to jump in and DJ or leave a turntable open
 do (djing = no)->
